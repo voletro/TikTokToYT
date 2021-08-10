@@ -8,6 +8,8 @@ Firefox - https://www.mozilla.org/en-US/firefox/new/
 
 GeckoDriver - https://github.com/mozilla/geckodriver/releases
 
+EditThisCookie - https://addons.mozilla.org/en-US/firefox/addon/etc2/
+
 ## Setup:
 
 1. Extract downloaded zip file to a folder. Go to that folder in a terminal.
