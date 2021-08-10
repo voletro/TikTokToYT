@@ -6,7 +6,7 @@
    ██║   ██║██║  ██╗   ██║   ╚██████╔╝██║  ██╗        ██║   ╚██████╔╝       ██║      ██║   
    ╚═╝   ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝        ╚═╝    ╚═════╝        ╚═╝      ╚═╝   
 
-By jakenic
+By voletro
 
 Downloads a trending TikTok video and uploads it to YouTube. This will happen every half an hour (30 mins).
 
@@ -184,17 +184,15 @@ def _set_endcard(driver: WebDriver):
 def _set_time(driver: WebDriver):
     # Start time scheduling
     WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.NAME, "PUBLIC"))).click()
+    WebDriverWait(driver, 20).until(EC.element_to_be_clickable((By.ID, "step-badge-2"))).click()
+    WebDriverWait(driver, 100).until(EC.presence_of_element_located((By.ID, "results-description")))
+    copyrightinfo: WebElement = driver.find_element_by_id("results-description")
+    if "Copyright claim found." in copyrightinfo.text:
+        driver.close()
+    else:
+        print("test")   
 
 def main():
-    title = """
-████████╗██╗██╗  ██╗████████╗ ██████╗ ██╗  ██╗     ████████╗ ██████╗     ██╗   ██╗████████╗
-╚══██╔══╝██║██║ ██╔╝╚══██╔══╝██╔═══██╗██║ ██╔╝     ╚══██╔══╝██╔═══██╗    ╚██╗ ██╔╝╚══██╔══╝
-   ██║   ██║█████╔╝    ██║   ██║   ██║█████╔╝         ██║   ██║   ██║     ╚████╔╝    ██║   
-   ██║   ██║██╔═██╗    ██║   ██║   ██║██╔═██╗         ██║   ██║   ██║      ╚██╔╝     ██║   
-   ██║   ██║██║  ██╗   ██║   ╚██████╔╝██║  ██╗        ██║   ╚██████╔╝       ██║      ██║   
-   ╚═╝   ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝        ╚═╝    ╚═════╝        ╚═╝      ╚═╝   
-    """
-    print(title)
     api = TikTokApi.get_instance()
     trending = api.trending(count=1, custom_verifyFp="")
     for tiktok in trending:
@@ -206,6 +204,8 @@ def main():
         desc = tiktok['desc']
         print("Downloading video...")
         urllib.request.urlretrieve(link, f'{username}-{id}.mp4')
+    if len(desc) > 75:
+        desc = desc[:75]
     title = f"{desc} - @{username} - For You"
     description = f"Credit to the original creator, @{username}. Check out their other content here: https://tiktok.com/@{username}"
     print("Downloaded video!")
@@ -244,9 +244,20 @@ def main():
         driver.close()
         raise
     
+
+os.system('cls' if os.name in ('nt', 'dos') else 'clear')
+texttitle = """
+████████╗██╗██╗  ██╗████████╗ ██████╗ ██╗  ██╗     ████████╗ ██████╗     ██╗   ██╗████████╗
+╚══██╔══╝██║██║ ██╔╝╚══██╔══╝██╔═══██╗██║ ██╔╝     ╚══██╔══╝██╔═══██╗    ╚██╗ ██╔╝╚══██╔══╝
+   ██║   ██║█████╔╝    ██║   ██║   ██║█████╔╝         ██║   ██║   ██║     ╚████╔╝    ██║   
+   ██║   ██║██╔═██╗    ██║   ██║   ██║██╔═██╗         ██║   ██║   ██║      ╚██╔╝     ██║   
+   ██║   ██║██║  ██╗   ██║   ╚██████╔╝██║  ██╗        ██║   ╚██████╔╝       ██║      ██║   
+   ╚═╝   ╚═╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝  ╚═╝        ╚═╝    ╚═════╝        ╚═╝      ╚═╝   
+"""
+print(texttitle)
 while True:
-    os.system('cls' if os.name in ('nt', 'dos') else 'clear')
     main()
     print("Finished upload.")
     print("Waiting for next upload.")
     sleep(1800)
+    
