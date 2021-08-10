@@ -1,5 +1,5 @@
 ﻿# TikTok to YT
-By jakenic.
+By voletro.
 
 Downloads a trending TikTok video and uploads it to YouTube. This will happen every half an hour (30 mins).
 ## Requirements:
