@@ -30,4 +30,8 @@ davidteather - TikTokApi - https://github.com/davidteather/TikTok-Api
 
 SeleniumHQ - selenium - https://github.com/SeleniumHQ/selenium
 
-
+## To-do:
+1. Make deployable to Heroku
+2. Add detection for copyrighted music, and replace it, removing copyright strike
+3. Compilation Maker
+4. Add proxy support to make sure different video is uploaded every time.
