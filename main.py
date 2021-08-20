@@ -48,6 +48,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
+from random import randint
 
 currentpath = os.getcwd()
 
@@ -194,7 +195,7 @@ def _set_time(driver: WebDriver):
 
 def main():
     api = TikTokApi.get_instance()
-    trending = api.trending(count=1, custom_verifyFp="")
+    trending = api.by_trending(count=1, custom_verifyFp="")
     for tiktok in trending:
         tvideo = tiktok['video']
         link = tvideo['downloadAddr']
@@ -207,7 +208,7 @@ def main():
     if len(desc) > 75:
         desc = desc[:75]
     title = f"{desc} - @{username} - For You"
-    description = f"Credit to the original creator, @{username}. Check out their other content here: https://tiktok.com/@{username}"
+    description = f"Credit to the original creator, @{username}. Check out their other content here: https://tiktok.com/@{username} #shorts"
     print("Downloaded video!")
     print(title)
     print("Starting upload...")
@@ -240,6 +241,7 @@ def main():
             title=title,
             description=description,
         )
+        os.remove(f'{username}-{id}.mp4')
     except:
         driver.close()
         raise
